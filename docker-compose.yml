@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  landing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${RESPONSIVENESS_PORT}:80
+
+    restart: always
+    container_name: responsiveness
