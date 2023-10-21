@@ -20,25 +20,31 @@ const pickIcon = (type: string): IconType => {
 interface DeviceBarProps {
   isOpen: boolean
   onClose: () => void
+  direction: 'vertical' | 'horizontal'
   devices: Device[]
 }
 
-export const DeviceBar: FC<DeviceBarProps> = ({ isOpen, onClose, devices }) => {
+export const DeviceBar: FC<DeviceBarProps> = ({ isOpen, onClose, devices, direction }) => {
   return (
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
-      placement="right">
-      <DrawerContent width={'140px !important'}>
-        {devices.map((device) => (
+      placement={direction === 'vertical' ? 'right' : 'top'}>
+      <DrawerContent
+        width={direction === 'vertical' ? '140px !important' : '100%'}
+        flexDirection={direction === 'vertical' ? 'column' : 'row'}
+        overflowX={'scroll'}>
+        {devices.map((device: Device, index: number) => (
           <Flex
             py={'10px'}
-            direction={'column'}
+            flexDirection={'column'}
             alignItems={'center'}
             justifyContent={'space-between'}
             height={'140px'}
-            key={device.name}
-            borderBottom={'2px solid'}>
+            width={'140px'}
+            key={index}
+            borderBottom={direction === 'vertical' ? '2px solid' : undefined}
+            borderRight={direction === 'horizontal' ? '2px solid' : undefined}>
             <Icon
               as={pickIcon(device.type)}
               height={'80px'}

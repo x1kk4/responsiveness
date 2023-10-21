@@ -3,10 +3,12 @@ import { DarkModeSwitch, DeviceBar, Drawer, DrawerOpenButton, IframeContainer } 
 
 import { useLocalStorage } from '@uidotdev/usehooks'
 import { Url, Device } from './types'
+import { useState } from 'react'
 
 const App = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  // const [direction, setDirection] = useState<'vertical' | 'horizontal'>('vertical')
+  const { isOpen: isDevicebarOpen, onOpen: onDevicebarOpen, onClose: onDevicebarClose } = useDisclosure()
+  const [direction, setDirection] = useState<'vertical' | 'horizontal'>('vertical')
   const [url, saveUrl] = useLocalStorage<Url>('url', '')
   const [usedDevices, saveUsedDevices] = useLocalStorage<string>('devices', '[]')
 
@@ -15,11 +17,19 @@ const App = () => {
   return (
     <>
       <DarkModeSwitch />
-      <DrawerOpenButton onOpen={onOpen} />
+      <DrawerOpenButton
+        onOpen={onOpen}
+        position={'left'}
+      />
+      <DrawerOpenButton
+        onOpen={onDevicebarOpen}
+        position={direction === 'vertical' ? 'right' : 'top'}
+      />
       <DeviceBar
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isDevicebarOpen}
+        onClose={onDevicebarClose}
         devices={devices}
+        direction={direction}
       />
       <Drawer
         isOpen={isOpen}
@@ -28,18 +38,20 @@ const App = () => {
         saveUrl={saveUrl}
         usedDevices={usedDevices}
         saveUsedDevices={saveUsedDevices}
+        direction={direction}
+        setDirection={setDirection}
       />
 
       <Flex
         minH={'100vh'}
         minW={'100vw'}
-        flexDirection={'column'}
-        alignItems={'center'}
-        gap={'20px'}>
+        flexDirection={direction === 'vertical' ? 'column' : 'row'}
+        alignItems={direction === 'vertical' ? 'center' : undefined}
+        gap={'50px'}>
         {url ? (
-          devices.map((device: Device) => (
+          devices.map((device: Device, index: number) => (
             <IframeContainer
-              key={device.name}
+              key={index}
               url={url}
               name={device.name}
               size={device.size}
