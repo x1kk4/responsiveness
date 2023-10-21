@@ -1,4 +1,4 @@
-import { Box, Flex, useDisclosure } from '@chakra-ui/react'
+import { Box, Flex, Heading, useDisclosure } from '@chakra-ui/react'
 import { DarkModeSwitch, DeviceBar, Drawer, DrawerOpenButton, IframeContainer } from './components'
 
 import { useLocalStorage } from '@uidotdev/usehooks'
@@ -48,7 +48,7 @@ const App = () => {
         flexDirection={direction === 'vertical' ? 'column' : 'row'}
         alignItems={direction === 'vertical' ? 'center' : undefined}
         gap={'50px'}>
-        {url ? (
+        {url && devices.length !== 0 ? (
           devices.map((device: Device, index: number) => (
             <IframeContainer
               key={index}
@@ -58,8 +58,34 @@ const App = () => {
               type={device.type}
             />
           ))
+        ) : !url ? (
+          <Box
+            padding={'16px'}
+            rounded={'md'}
+            top={'0px'}
+            bottom={'0px'}
+            margin={'auto'}
+            bg={'red'}>
+            <Heading
+              as={'h2'}
+              size={'lg'}>
+              Specify URL
+            </Heading>
+          </Box>
         ) : (
-          <Box>Specify url</Box>
+          <Box
+            padding={'16px'}
+            rounded={'md'}
+            top={'0px'}
+            bottom={'0px'}
+            margin={'auto'}
+            bg={'red'}>
+            <Heading
+              as={'h2'}
+              size={'lg'}>
+              Select at least one device
+            </Heading>
+          </Box>
         )}
       </Flex>
     </>
