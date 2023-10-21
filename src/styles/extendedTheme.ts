@@ -1,6 +1,11 @@
 import { extendTheme } from '@chakra-ui/react'
+import { globals } from './globals'
 
 export const extendedTheme = extendTheme({
+  styles: {
+    global: globals,
+  },
+
   colors: {
     responsiveness: {
       100: '',
@@ -14,4 +19,5 @@ export const extendedTheme = extendTheme({
       900: '',
     },
   },
+  components: {},
 })

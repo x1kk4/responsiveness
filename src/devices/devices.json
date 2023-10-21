@@ -1,0 +1,42 @@
+[
+  {
+    "name": "IPhone 6s",
+    "type": "mobile",
+    "size": {
+      "height": 667,
+      "width": 375
+    }
+  },
+  {
+    "name": "IPhone 14 Pro",
+    "type": "mobile",
+    "size": {
+      "height": 852,
+      "width": 393
+    }
+  },
+  {
+    "name": "IPad Pro 12",
+    "type": "tablet",
+    "size": {
+      "height": 1366,
+      "width": 1024
+    }
+  },
+  {
+    "name": "Macbook Air 13\"",
+    "type": "laptop",
+    "size": {
+      "height": 900,
+      "width": 1440
+    }
+  },
+  {
+    "name": "FHD Monitor",
+    "type": "desktop",
+    "size": {
+      "height": 1080,
+      "width": 1920
+    }
+  }
+]
